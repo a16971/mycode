@@ -9,6 +9,7 @@ class hashmap
 {
 protected: 
 	
+	
 	class node
 	{
 	private: 

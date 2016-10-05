@@ -1,9 +1,10 @@
 #include <iostream>
-#include <unordered_map>
+#include <tr1/unordered_map>
 #include <vector>
+#include <utility>
 
 using namespace std;
-
+using namespace std::tr1;
 int*  twoSum(int  number[], int target)
 {
 	int*  ret= new int[100];
@@ -46,15 +47,35 @@ vector<int> twoSum_1(vector<int> &array, int target)
 		cout << *it << endl;
 }
 
+pair<int,int> twoSum_2(int a[],int target)
+{
+	int* ret = new int[2];
+	pair<int, int> ret_pair;
+	unordered_map<int, int> hash_t;
+	unordered_map<int, int>::iterator itr;
+
+	for(int i = 0; i < sizeof(a); i++)
+	{
+		if((itr = hash_t.find(target - a[i])) != hash_t.end())
+		{
+			ret[0] = hash_t[target - a[i]];
+			ret[1] = i;
+			ret_pair = make_pair(hash_t[target - a[i]],i);	 
+		}else
+			hash_t[a[i]] = i;
+	}
+	return ret_pair;
+}
 int main(void)
 {
 
 	int a[] = {2, 3, 4, 11, 13, 9, 1, 0,5};
-	vector<int> v  = {2, 3, 4, 11, 13, 9, 1, 0,5};
+	//vector<int> v  = new vector<int>(a);//{2, 3, 4, 11, 13, 9, 1, 0,5};
 	int* b = twoSum(a, 9);
-	
+	pair<int, int> p; 
 	cout << b[0] << " " << b[1] << endl;
-	twoSum_1(v, 9);
-	
+//	twoSum_1(v, 9);
+	p  = twoSum_2(a, 14);	
+	cout << b[0] << ":" << b[1] << endl;
 	return 0;
 }
